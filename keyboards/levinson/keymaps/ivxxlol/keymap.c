@@ -7,9 +7,9 @@ extern keymap_config_t keymap_config;
 #define _QWERTY 0
 #define _COLEMAK 1
 #define _DVORAK 2
-#define _NUMB 3
-#define _CODE 4
-#define _SYS 5
+#define _LOWER 3
+#define _RAISE 4
+#define _FN3 5
 #define _FN4 6
 #define _ADJUST 16
 
@@ -17,9 +17,9 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
-  NUMB,
-  CODE,
-  SYS,
+  LOWER,
+  RAISE,
+  FN3,
   FN4,
   ADJUST,
 };
@@ -31,9 +31,9 @@ enum custom_keycodes {
 #define KC_CPYW LGUI(LSFT(LCTL(KC_3)))  // Copy whole screen
 #define KC_CAPP LGUI(LSFT(KC_4))        // Capture portion of screen
 #define KC_CPYP LGUI(LSFT(LCTL(KC_4)))  // Copy portion of screen
-#define KC_X1 NUMB
-#define KC_X2 SYS
-#define KC_X3 ADJUST
+#define KC_X1 LOWER
+#define KC_X2 RAISE
+#define KC_X3 FN3
 #define KC_X4 MT(MOD_LSFT, KC_ENT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_NUMB] = LAYOUT_kc(
+  [_LOWER] = LAYOUT_kc(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      TILD,EXLM, AT ,HASH,DLR ,PERC,     CIRC,AMPR,ASTR,LPRN,RPRN,PMNS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_CODE] = LAYOUT_kc(
+  [_RAISE] = LAYOUT_kc(
   //,----+------+----+----+----+----.    ,----+----+----+----+----+----.
      ESC ,      ,    , UP ,    ,    ,     PGUP,HOME,LPRN,RPRN,BSLS,PIPE,
   //|----+------+----+----+----+----|    |----+----+----+----+----+----|
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+------+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_SYS] = LAYOUT_kc(
+  [_FN3] = LAYOUT_kc(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      F12 , F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 ,F10 ,F11 ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -171,23 +171,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case NUMB:
+    case LOWER:
       if (record->event.pressed) {
-        layer_on(_NUMB);
-        update_tri_layer(_NUMB, _CODE, _ADJUST);
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
-        layer_off(_NUMB);
-        update_tri_layer(_NUMB, _CODE, _ADJUST);
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
-    case CODE:
+    case RAISE:
       if (record->event.pressed) {
-        layer_on(_CODE);
-        update_tri_layer(_NUMB, _CODE, _ADJUST);
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
-        layer_off(_CODE);
-        update_tri_layer(_NUMB, _CODE, _ADJUST);
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
