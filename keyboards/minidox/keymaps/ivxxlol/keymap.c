@@ -25,6 +25,8 @@ enum custom_keycodes {
 // Defines for task manager and such
 #define CALTDEL LCTL(LALT(KC_DEL))
 #define TSKMGR LCTL(LSFT(KC_ESC))
+#define SFT_Z MT(MOD_LSFT, KC_Z)  //mod tap z (hold for left shift)
+#define SFT_FS MT(MOD_RSFT, KC_SLSH) // mod tap / (hold for right shift)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -35,19 +37,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |   A  |   S  |   D  |   F  |   G  |           |   H  |   J  |   K  |   L  |   ;  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   /  |
+ * | Z|Sh |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  | /|Sh |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
- *                  | Shift| LOWER|      |    |      | RAISE| Ctrl |
- *                  `-------------| Space|    |BckSpc|------+------.
+ *                  | Esc  | LOWER|      |    |      | RAISE| Ctrl |
+ *                  `-------------| Space|    |Enter |------+------.
  *                                |      |    |      |
  *                                `------'    `------'
  */
 [_QWERTY] = LAYOUT( \
   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, \
-  MT(MOD_LSFT, KC_Z),    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  MT(MOD_RSFT, KC_SLSH), \
-                    OSM(MOD_LSFT), LOWER, KC_SPC,         KC_BSPC, RAISE, KC_LCTL                 \
+  SFT_Z,   KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  SFT_FS,  \
+                    KC_ESC,  LOWER,   KC_SPC,       KC_ENT,  RAISE,   KC_LCTL                 \
 ),
 
 /* Raise
@@ -83,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
  *                  |      | LOWER|      |    |      | RAISE|  Del |
- *                  `-------------|      |    | Enter|------+------.
+ *                  `-------------|      |    | BkSpc|------+------.
  *                                |      |    |      |
  *                                `------'    `------'
  */
@@ -91,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, \
   KC_ESC,  _______, _______, _______, _______,      _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, \
   KC_CAPS, KC_TILD, _______, _______, _______,      _______, _______, _______, KC_PIPE,  KC_DQT, \
-                    _______, _______, _______,      KC_ENT,  _______, KC_DEL                    \
+                    _______, _______, _______,      KC_BKSP,  _______, KC_DEL                    \
 ),
 
 /* Adjust (Lower + Raise)
